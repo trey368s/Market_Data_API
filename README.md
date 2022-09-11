@@ -24,7 +24,7 @@ Given an incorrect ticker symbol while the stock market is either open or closed
 }
 ## Scrum Roles
 Product Owner/Github Admin- Trey Stegeman  
-Business Logic-  
+Business Logic-  Brendan Payne
 UI Specialist-  Riley Setser  
 Quality Assurance- Max De Santiago  
 ## Scrum Board
