@@ -2,7 +2,7 @@
 ## Introduction
 This application will be able to display real time and historical price information for an entered stock. The user will be able to enter a ticker symbol into the application where it will then use the [Alpaca.markets](https://alpaca.markets/docs/api-references/market-data-api/stock-pricing-data/) API to retrieve stock information. The application will then display live trade data of the stock and using the [Lightweight charts](https://www.tradingview.com/lightweight-charts/) library it will graph the information. 
 ## Storyboard
-We need a start screen pannel where it asks the user to input a ticker symbol, then another pannel where its shows live trade information and a candlestick graph once the ticker is entered.
+![a782f9f1-ea69-4f77-bbad-4d869fafc219](https://user-images.githubusercontent.com/35185334/189549020-4aa93d3c-37d5-423f-8e31-a4ef663a3d83.jpg)
 ## Functional Requirements
 Given a correct ticker symbol when the stock market is open then the application will display real time trade data and graph it.  
 Given a correct ticker symbol when the stock market is closed then the application will display historical trade data and graph it.  
@@ -25,9 +25,10 @@ Given an incorrect ticker symbol while the stock market is either open or closed
 ## Scrum Roles
 Product Owner/Github Admin- Trey Stegeman  
 Business Logic-  
-UI Specialist-  Riley Setser
-Quality Assurance-
+UI Specialist-  Riley Setser  
+Quality Assurance- Max De Santiago  
 ## Scrum Board
 https://github.com/trey368s/Market_Data_API/projects
 ## Scrum Meetings
 In teams on Sundays at 12
+
