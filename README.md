@@ -5,7 +5,9 @@ This application will be able to display real time and historical price informat
 ## Storyboard
 
 ## Functional Requirements
-
+Given a correct ticker symbol when the stock market is open then the application will display real time trade data and graph it.  
+Given a correct ticker symbol when the stock market is closed then the application will display historical trade data and graph it.
+Given an incorrect ticker symbol while the stock market is either open or closed, the application will prompt the user to enter a correct symbol.
 
 ## Class Diagram
 ![Market Data Class Diagram](https://github.com/trey368s/Market_Data_API/blob/master/Class%20Diagram.drawio.png)
