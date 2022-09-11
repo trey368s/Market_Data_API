@@ -25,7 +25,7 @@ Given an incorrect ticker symbol while the stock market is either open or closed
 ## Scrum Roles
 Product Owner/Github Admin- Trey Stegeman  
 Business Logic-  
-UI Specialist-  
+UI Specialist-  Riley Setser
 Quality Assurance-
 ## Scrum Board
 https://github.com/trey368s/Market_Data_API/projects
