@@ -16,7 +16,7 @@ public class MarketDataController {
     }
 
     @GetMapping("/MarketData/{symbol}")
-    public ResponseEntity fetchSymbol(@PathVariable("symbol") String symbol) {
-        return new ResponseEntity(HttpStatus.OK);
+    public String fetchSymbol(@PathVariable("symbol") String symbol) {
+        return "index";
     }
 }
