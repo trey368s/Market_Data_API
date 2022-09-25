@@ -35,12 +35,15 @@ This program streams live market data in Monday through Friday 9:30 a.m. to 4:00
         for (const key in data) {
             console.log(data[key])
             if(data[key]["T"] === 't'){
+                console.log("trade")
                 console.log(data[key])
             }
             if(data[key]["T"] === 'q'){
+                console.log("quote")
                 console.log(data[key])
             }
             if(data[key]["T"] === 'b'){
+                console.log("bar")
                 console.log(data[key])
             }
 
