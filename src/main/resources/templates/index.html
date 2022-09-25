@@ -7,7 +7,7 @@
 <h1>Market Data API</h1>
 <h2 id="symbol"></h2>
 <body >
-Hello world.
+This program streams live market data in Monday through Friday 9:30 a.m. to 4:00 p.m. Eastern time
 </body>
 <script>
     document.getElementById("symbol").innerHTML = window.location.href;
@@ -34,6 +34,16 @@ Hello world.
 
         for (const key in data) {
             console.log(data[key])
+            if(data[key]["T"] === 't'){
+                console.log(data[key])
+            }
+            if(data[key]["T"] === 'q'){
+                console.log(data[key])
+            }
+            if(data[key]["T"] === 'b'){
+                console.log(data[key])
+            }
+
         }
     }
 </script>
