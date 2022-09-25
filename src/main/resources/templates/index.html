@@ -3,11 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Market Data</title>
+    <style>
+        body{font-family: Consolas,serif;}
+        .panel{ width: 400px; height: 400px; border: solid black 1px}
+    </style>
 </head>
 <h1>Market Data API</h1>
 <h2 id="symbol"></h2>
 <body >
-This program streams live market data in Monday through Friday 9:30 a.m. to 4:00 p.m. Eastern time
+    <h3>Quotes</h3>
+    <div id="quotes" class="panel"></div>
+    <h3>Trades</h3>
+    <div id="trades" class="panel"></div>
+    <h3>Bars</h3>
+    <div id="bars" class="panel"></div>
 </body>
 <script>
     document.getElementById("symbol").innerHTML = window.location.href;
@@ -46,7 +55,6 @@ This program streams live market data in Monday through Friday 9:30 a.m. to 4:00
                 console.log("bar")
                 console.log(data[key])
             }
-
         }
     }
 </script>
