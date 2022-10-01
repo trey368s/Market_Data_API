@@ -13,6 +13,6 @@ class quotes {
     private double bidPrice;
     private int bidSize;
     private String timestamp;
-    private String condition[];
+    private String[] condition;
     private String tape;
 }
