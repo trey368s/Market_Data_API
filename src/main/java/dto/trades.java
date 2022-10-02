@@ -11,6 +11,6 @@ class trades {
     private double price;
     private int size;
     private String timestamp;
-    private String condition[];
+    private String[] condition;
     private String tape;
 }
