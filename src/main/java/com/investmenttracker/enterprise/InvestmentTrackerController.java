@@ -10,7 +10,7 @@ public class InvestmentTrackerController {
 
     @RequestMapping("/")
     public String index() {
-        return "symbol";
+        return "index";
     }
 
     @GetMapping("/MarketData/{symbol}")
