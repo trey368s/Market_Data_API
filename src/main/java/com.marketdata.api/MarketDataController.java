@@ -15,6 +15,6 @@ public class MarketDataController {
 
     @GetMapping("/MarketData/{symbol}")
     public String fetchSymbol(@PathVariable("symbol") String symbol) {
-        return "index";
+        return "symbol";
     }
 }
