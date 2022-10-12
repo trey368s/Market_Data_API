@@ -1,4 +1,4 @@
-document.getElementById("symbol").innerHTML = window.location.href;
+//document.getElementById("symbol").innerHTML = window.location.href;
 urlSymbol = window.location.href;
 tickerSymbol = urlSymbol.substring(urlSymbol.lastIndexOf("/") + 1);
 document.getElementById("symbol").innerHTML = tickerSymbol;
