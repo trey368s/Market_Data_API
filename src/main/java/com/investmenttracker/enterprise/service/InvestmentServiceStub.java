@@ -2,14 +2,15 @@ package com.investmenttracker.enterprise.service;
 
 import com.investmenttracker.enterprise.dao.IInvestmentDAO;
 import com.investmenttracker.enterprise.dto.investment;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
 public class InvestmentServiceStub implements IInvestmentService{
-
+    @Autowired
     private IInvestmentDAO investmentDAO;
     List<investment> allEntries = new ArrayList<>();
 
@@ -31,19 +32,22 @@ public class InvestmentServiceStub implements IInvestmentService{
     }
 
     @Override
-    public investment save(investment Investment) throws Exception {
-
+    public void save(investment Investment) {
         allEntries.add(Investment);
-        return investmentDAO.save(Investment);
     }
     @Override
-    public void saveInvestment(investment Investment) {
-
-        allEntries.add(Investment);
+    public investment saveInvestment(investment Investment) throws Exception {
+        return investmentDAO.saveInvestment(Investment);
     }
 
     @Override
     public List<investment> fetchAll() {
         return allEntries;
+    }
+
+    @Override
+    public List<investment> fetchAllInvestments() {
+        return investmentDAO.fetchAllInvestments();
+
     }
 }

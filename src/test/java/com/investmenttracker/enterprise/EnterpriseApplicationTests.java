@@ -46,7 +46,7 @@ class EnterpriseApplicationTests {
 	}
 
 	@Test
-	void verifyAddAndRemoveInvestmentEntries() {
+	void verifyAddAndRemoveInvestmentEntries() throws Exception {
 		int id = 2;
 		String symbol = "MSFT";
 		int shares = 15;
@@ -58,7 +58,7 @@ class EnterpriseApplicationTests {
 		Investment.setShares(shares);
 		Investment.setPriceOpened(priceOpened);
 
-		investmentService.saveInvestment(Investment);
+		investmentService.save(Investment);
 
 		List<investment> InvestmentEntries = investmentService.fetchAll();
 		boolean investmentPresent = false;
@@ -87,7 +87,7 @@ class EnterpriseApplicationTests {
 	}
 
 	private void givenInvestmentDataAreAvailable() throws Exception {
-		Mockito.when(investmentDAO.save(Investment)).thenReturn(Investment);
+		Mockito.when(investmentDAO.saveInvestment(Investment)).thenReturn(Investment);
 		investmentService = new InvestmentServiceStub(investmentDAO);
 	}
 

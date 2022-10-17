@@ -7,9 +7,11 @@ import java.util.List;
 public interface IInvestmentService {
     investment fetchById(int id);
 
-    investment save (investment Investment) throws Exception;
+    void save (investment Investment);
 
-    void saveInvestment(investment Investment);
+    investment saveInvestment(investment Investment) throws Exception;
 
     List<investment> fetchAll();
+
+    List<investment> fetchAllInvestments();
 }
