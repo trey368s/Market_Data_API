@@ -7,6 +7,8 @@ import java.util.List;
 public interface IInvestmentService {
     investment fetchById(int id);
 
+    void delete(int id) throws Exception;
+
     void save (investment Investment);
 
     investment saveInvestment(investment Investment) throws Exception;

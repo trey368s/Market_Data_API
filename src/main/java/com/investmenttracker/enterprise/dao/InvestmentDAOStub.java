@@ -4,12 +4,14 @@ import com.investmenttracker.enterprise.dto.investment;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class InvestmentDAOStub implements IInvestmentDAO {
 
-    List<investment> allInvestments = new ArrayList<investment>();
+    Map<Integer, investment> allInvestments = new HashMap<>();
 
     @Override
     public investment save(investment investment) {
@@ -23,12 +25,24 @@ public class InvestmentDAOStub implements IInvestmentDAO {
 
     @Override
     public List<investment> fetchAllInvestments() {
-        return allInvestments;
+        List<investment> returnInvestments = new ArrayList(allInvestments.values());
+        return returnInvestments;
     }
 
     @Override
     public investment saveInvestment(investment Investment) {
-        allInvestments.add(Investment);
+        Integer investmentID = Investment.getId();
+        allInvestments.put(investmentID, Investment);
         return Investment;
+    }
+
+    @Override
+    public investment fetchId(int id) {
+        return allInvestments.get(id);
+    }
+
+    @Override
+    public void delete(int id) {
+        allInvestments.remove(id);
     }
 }

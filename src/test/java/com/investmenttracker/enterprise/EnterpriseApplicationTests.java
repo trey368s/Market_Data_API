@@ -46,7 +46,7 @@ class EnterpriseApplicationTests {
 	}
 
 	@Test
-	void verifyAddAndRemoveInvestmentEntries() throws Exception {
+	void verifyAddAndRemoveInvestmentEntries() {
 		int id = 2;
 		String symbol = "MSFT";
 		int shares = 15;
@@ -72,8 +72,9 @@ class EnterpriseApplicationTests {
 	}
 
 	@Test
-	void fetchInvestmentByID_returnsMSFTForID333() throws Exception  {
+	void fetchInvestmentByID_returnsMSFTForID333() {
 		givenInvestmentDataAreAvailable();
+		whenInvestment333IsMSFT();
 		whenInvestment333AddedIsMSFT();
 		whenSearchInvestmentWithID333();
 		thenReturnOneMSFTInvestmentForID333();
@@ -86,7 +87,7 @@ class EnterpriseApplicationTests {
 		Mockito.when(investmentDAO.fetch(333)).thenReturn(Investment);
 	}
 
-	private void givenInvestmentDataAreAvailable() throws Exception {
+	private void givenInvestmentDataAreAvailable() {
 		Mockito.when(investmentDAO.saveInvestment(Investment)).thenReturn(Investment);
 		investmentService = new InvestmentServiceStub(investmentDAO);
 	}
@@ -98,5 +99,12 @@ class EnterpriseApplicationTests {
 	private void thenReturnOneMSFTInvestmentForID333() {
 		String symbol = Investment.getSymbol();
 		assertEquals("MSFT", symbol);
+	}
+
+	private void whenInvestment333IsMSFT(){
+		investment inv = new investment();
+		inv.setId(333);
+		inv.setSymbol("MSFT");
+		Mockito.when(investmentDAO.fetchId(333)).thenReturn(inv);
 	}
 }

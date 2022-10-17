@@ -25,18 +25,19 @@ public class InvestmentServiceStub implements IInvestmentService{
 
     @Override
     public investment fetchById(int id){
-        investment Investment = new investment();
-        Investment.setId(333);
-        Investment.setSymbol("MSFT");
-        return Investment;
+        return investmentDAO.fetchId(id);
     }
 
+    @Override
+    public void delete(int id) {
+        investmentDAO.delete(id);
+    }
     @Override
     public void save(investment Investment) {
         allEntries.add(Investment);
     }
     @Override
-    public investment saveInvestment(investment Investment) throws Exception {
+    public investment saveInvestment(investment Investment) {
         return investmentDAO.saveInvestment(Investment);
     }
 
