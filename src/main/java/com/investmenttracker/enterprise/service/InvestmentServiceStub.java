@@ -1,15 +1,20 @@
 package com.investmenttracker.enterprise.service;
 
 import com.investmenttracker.enterprise.dao.IInvestmentDAO;
+import com.investmenttracker.enterprise.dao.IMarketDataDAO;
+import com.investmenttracker.enterprise.dto.MarketData;
 import com.investmenttracker.enterprise.dto.investment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class InvestmentServiceStub implements IInvestmentService{
+    @Autowired
+    private IMarketDataDAO marketDataDAO;
     @Autowired
     private IInvestmentDAO investmentDAO;
     List<investment> allEntries = new ArrayList<>();
@@ -50,5 +55,10 @@ public class InvestmentServiceStub implements IInvestmentService{
     public List<investment> fetchAllInvestments() {
         return investmentDAO.fetchAllInvestments();
 
+    }
+
+    @Override
+    public List<MarketData> fetchMarketData(String symbol) throws IOException {
+        return marketDataDAO.fetchMarketData(symbol);
     }
 }
