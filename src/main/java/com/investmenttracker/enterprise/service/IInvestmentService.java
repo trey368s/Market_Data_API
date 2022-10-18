@@ -1,7 +1,7 @@
 package com.investmenttracker.enterprise.service;
 
-import com.investmenttracker.enterprise.dto.MarketData;
 import com.investmenttracker.enterprise.dto.investment;
+import okhttp3.ResponseBody;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,5 +19,5 @@ public interface IInvestmentService {
 
     List<investment> fetchAllInvestments();
 
-    List<MarketData> fetchMarketData(String symbol) throws IOException;
+    ResponseBody fetchMarketData(String symbol) throws IOException;
 }

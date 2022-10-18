@@ -56,15 +56,10 @@ public class InvestmentTrackerController {
     }
 
     @GetMapping("/MarketData/Investment/{symbol}/")
-    public String fetchSymbol(@PathVariable("symbol") String symbol) {
-        return "symbol";
-    }
-
-    @GetMapping("/MarketData/Investment/")
-    public ResponseEntity fetchMarketData() {
+    public ResponseEntity fetchMarketData(@PathVariable("symbol") String symbol) {
         try {
-            String symbol="1Min";
-            List<MarketData> marketData = investmentService.fetchMarketData(symbol);
+            String query="v2/stocks/" + symbol + "/bars?timeframe=1Min";
+            okhttp3.ResponseBody marketData = investmentService.fetchMarketData(query);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             return new ResponseEntity(marketData, headers, HttpStatus.OK);
