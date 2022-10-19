@@ -26,6 +26,11 @@ public class InvestmentTrackerController {
         return "index";
     }
 
+    @RequestMapping("/Investment/{symbol}/")
+    public String fetchSymbol(@PathVariable String symbol) {
+        return "symbol";
+    }
+
     @GetMapping("/MarketData/")
     @ResponseBody
     public List<investment> fetchAllInvestments() {
