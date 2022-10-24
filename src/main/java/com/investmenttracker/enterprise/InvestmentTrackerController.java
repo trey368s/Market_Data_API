@@ -9,8 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import retrofit2.Response;
+import java.time.LocalDateTime;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,7 +24,21 @@ public class InvestmentTrackerController {
     IInvestmentService investmentService;
 
     @RequestMapping("/")
-    public String index() {
+    public String index(Model model) {
+        investment Investment = new investment();
+        Investment.setSymbol("PYCR");
+        Investment.setShares(30);
+        Investment.setPriceOpened(30.00);
+        Investment.setId(10);
+        model.addAttribute(Investment);
+        return "index";
+    }
+
+    @RequestMapping("/saveInvestment")
+    public String saveInvestment(investment Investment) throws Exception {
+        LocalDateTime timestamp = LocalDateTime.now();
+        Investment.setOpenedTimestamp(timestamp.toString());
+        investmentService.saveInvestment(Investment);
         return "index";
     }
 
