@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClientInstance {
 
     private static Retrofit retrofit;
-    private static String BASE_URL = "https://data.alpaca.markets";
+    private static String BASE_URL = "https://pkgstore.datahub.io/";
 
     public static Retrofit getRetrofitInstance(){
         if (retrofit == null) {

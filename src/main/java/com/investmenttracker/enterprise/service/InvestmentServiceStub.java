@@ -2,8 +2,8 @@ package com.investmenttracker.enterprise.service;
 
 import com.investmenttracker.enterprise.dao.IInvestmentDAO;
 import com.investmenttracker.enterprise.dao.IMarketDataDAO;
+import com.investmenttracker.enterprise.dto.MarketData;
 import com.investmenttracker.enterprise.dto.investment;
-import okhttp3.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +57,7 @@ public class InvestmentServiceStub implements IInvestmentService{
     }
 
     @Override
-    public ResponseBody fetchMarketData(String symbol) throws IOException {
-        return marketDataDAO.fetchMarketData(symbol);
+    public List<MarketData> fetchMarketData() throws IOException {
+        return marketDataDAO.fetchMarketData();
     }
 }

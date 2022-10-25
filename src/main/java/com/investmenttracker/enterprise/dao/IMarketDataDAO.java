@@ -1,10 +1,11 @@
 package com.investmenttracker.enterprise.dao;
 
-import okhttp3.ResponseBody;
+import com.investmenttracker.enterprise.dto.MarketData;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface IMarketDataDAO  {
-    ResponseBody fetchMarketData(String symbol) throws IOException;
+    List<MarketData> fetchMarketData() throws IOException;
 
 }

@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import retrofit2.Response;
+
 import java.time.LocalDateTime;
 
 import java.io.IOException;
@@ -88,11 +88,10 @@ public class InvestmentTrackerController {
         }
     }
 
-    @GetMapping("/MarketData/Investment/{symbol}/")
-    public ResponseEntity fetchMarketData(@PathVariable("symbol") String symbol) {
+    @GetMapping("/MarketData/Investment/")
+    public ResponseEntity fetchMarketData() {
         try {
-            String query="v2/stocks/" + symbol + "/bars?timeframe=1Min";
-            okhttp3.ResponseBody marketData = investmentService.fetchMarketData(query);
+            List<MarketData> marketData = investmentService.fetchMarketData();
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             return new ResponseEntity(marketData, headers, HttpStatus.OK);
