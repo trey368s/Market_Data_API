@@ -12,4 +12,8 @@ public @Data class MarketData {
     private String sector;
     @SerializedName("Symbol")
     private String symbol;
+
+    public String toString(){
+        return symbol + ": " + name + ", " + sector;
+    }
 }

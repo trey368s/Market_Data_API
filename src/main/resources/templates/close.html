@@ -11,6 +11,7 @@
 <div th:replace="fragments/topnav :: navbar">
 
 </div>
+<h2>Close</h2>
 <p th:text="${investment}"></p>
 <form action="#" th:action="@{/closeInvestment}" th:object="${investment}" method="GET">
   <div class="input-group input-group-sm mb-3">

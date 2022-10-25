@@ -88,15 +88,15 @@ public class InvestmentTrackerController {
         }
     }
 
-    @GetMapping("/MarketData/Investment/")
-    public ResponseEntity fetchMarketData() {
+    @GetMapping(value="/MarketData/Investment/")
+    public String fetchMarketData(Model model) {
         try {
-            List<MarketData> marketData = investmentService.fetchMarketData();
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            return new ResponseEntity(marketData, headers, HttpStatus.OK);
+            List<MarketData> marketData = investmentService.fetchMarketData();;
+            model.addAttribute("marketData", marketData);
+            return "companies";
         } catch (IOException e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
+            return "error";
         }
     }
 
