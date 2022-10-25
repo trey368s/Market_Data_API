@@ -6,10 +6,10 @@ import lombok.Data;
 import java.util.List;
 
 public @Data class MarketData {
-    @SerializedName("bars")
-    private List<Bar> bars;
-    @SerializedName("symbol")
+    @SerializedName("Name")
+    private String name;
+    @SerializedName("Sector")
+    private String sector;
+    @SerializedName("Symbol")
     private String symbol;
-    @SerializedName("next_page_token")
-    private String nextPageToken;
 }

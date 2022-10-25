@@ -24,27 +24,39 @@ public class InvestmentTrackerController {
     IInvestmentService investmentService;
 
     @RequestMapping("/")
-    public String index(Model model) {
-        investment Investment = new investment();
-        Investment.setSymbol("PYCR");
-        Investment.setShares(30);
-        Investment.setPriceOpened(30.00);
-        Investment.setId(10);
-        model.addAttribute(Investment);
-        return "index";
-    }
-
-    @RequestMapping("/saveInvestment")
-    public String saveInvestment(investment Investment) throws Exception {
-        LocalDateTime timestamp = LocalDateTime.now();
-        Investment.setOpenedTimestamp(timestamp.toString());
-        investmentService.saveInvestment(Investment);
+    public String index() {
         return "index";
     }
 
     @RequestMapping("/Investment/{symbol}/")
     public String fetchSymbol(@PathVariable String symbol) {
         return "symbol";
+    }
+
+    @RequestMapping("/openInvestment")
+    public String openInvestment(investment Investment) throws Exception {
+        LocalDateTime timestamp = LocalDateTime.now();
+        List<investment> idSize = investmentService.fetchAllInvestments();
+        int amount = idSize.size();
+        Investment.setId(amount+1);
+        Investment.setOpenedTimestamp(timestamp.toString());
+        investmentService.saveInvestment(Investment);
+        return "index";
+    }
+
+    @RequestMapping("/closeInvestment")
+    public String closeInvestment(investment Investment, @RequestParam(value = "id", required = false, defaultValue = "0") String id) throws Exception {
+        investment foundInvestment = investmentService.fetchById(Integer.parseInt(id));
+        Investment.setSymbol(foundInvestment.getSymbol());
+        Investment.setShares(foundInvestment.getShares());
+        Investment.setPriceOpened(foundInvestment.getPriceOpened());
+        Investment.setOpenedTimestamp(foundInvestment.getOpenedTimestamp());
+        LocalDateTime timestamp = LocalDateTime.now();
+        Investment.setClosedTimestamp(timestamp.toString());
+        double profit = (Investment.getPriceClosed() * Investment.getShares()) - (Investment.getPriceOpened() * Investment.getShares());
+        Investment.setProfit(profit);
+        investmentService.saveInvestment(Investment);
+        return "index";
     }
 
     @GetMapping("/MarketData/")
@@ -87,5 +99,24 @@ public class InvestmentTrackerController {
         } catch (IOException e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @RequestMapping("/open")
+    public String openInv(Model model){
+        investment Investment = new investment();
+        model.addAttribute(Investment);
+        return "add";
+    }
+
+    @RequestMapping("/close")
+    public String closeInv(Model model){
+        investment Investment = new investment();
+        model.addAttribute(Investment);
+        return "close";
+    }
+
+    @GetMapping("/Investment")
+    public ResponseEntity searchInvestments(@RequestParam(value = "searchTerm", required = false, defaultValue = "None") String searchTerm) {
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
