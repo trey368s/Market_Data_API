@@ -13,13 +13,13 @@
         </div>
         <h2>Open Positions</h2>
         <div class="list-group" th:each="data1 : ${openPos}">
-            <a href="#" class="list-group-item list-group-item-action">
+            <a th:href="@{'https://finance.yahoo.com/quote/' + ${data1.symbol}}" class="list-group-item list-group-item-action">
                 <p th:text="${data1}"></p>
             </a>
         </div>
         <h2>Closed Positions</h2>
         <div class="list-group" th:each="data2 : ${closePos}">
-            <a href="#" class="list-group-item list-group-item-action">
+            <a th:href="@{'https://finance.yahoo.com/quote/' + ${data2.symbol}}" class="list-group-item list-group-item-action">
                 <p th:text="${data2}"></p>
             </a>
         </div>

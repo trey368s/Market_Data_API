@@ -15,8 +15,14 @@ class investment {
     private double profit;
 
     public String toString(){
-        return "ID: " + id + ", Symbol: " + symbol + ", Shares: " + shares + ", Price Opened: $" + priceOpened +
-                ", Opened Timestamp: " + openedTimestamp + ", Price Closed: $" + priceClosed + ", Closed Timestamp: "
-                + closedTimestamp + ", Profit: $" + profit;
+        if(closedTimestamp != null) {
+            return "ID: " + id + ", Symbol: " + symbol + ", Shares: " + shares + ", Price Opened: $" + priceOpened +
+                    ", Opened Timestamp: " + openedTimestamp + ", Price Closed: $" + priceClosed + ", Closed Timestamp: "
+                    + closedTimestamp + ", Profit: $" + profit;
+        }
+        else{
+            return "ID: " + id + ", Symbol: " + symbol + ", Shares: " + shares + ", Price Opened: $" + priceOpened +
+                    ", Opened Timestamp: " + openedTimestamp;
+        }
     }
 }

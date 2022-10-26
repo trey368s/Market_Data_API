@@ -35,8 +35,8 @@ public class InvestmentDAOStub implements IInvestmentDAO {
         for(int i=0; i< returnOpenInv.size();i++)
         {
             investment inv = returnOpenInv.get(i);
-            double profit = inv.getProfit();
-            if (profit != 0){
+            var closed = inv.getClosedTimestamp();
+            if (closed != null){
                 returnOpenInv.remove(i);
             }
         }
@@ -49,8 +49,8 @@ public class InvestmentDAOStub implements IInvestmentDAO {
         for(int i=0; i< returnCloseInv.size();i++)
         {
             investment inv = returnCloseInv.get(i);
-            double profit = inv.getProfit();
-            if (profit == 0){
+            var closed = inv.getClosedTimestamp();
+            if (closed == null){
                 returnCloseInv.remove(i);
                 i--;
             }
