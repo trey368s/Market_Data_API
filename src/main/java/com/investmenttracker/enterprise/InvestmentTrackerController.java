@@ -17,6 +17,7 @@ import java.net.URI;
 import java.time.LocalDateTime;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -27,9 +28,11 @@ public class InvestmentTrackerController {
 
     @RequestMapping("/")
     public String index(Model open, Model close) {
-        List<investment> openPos = investmentService.fetchOpenPos();;
+        List<investment> openPos = investmentService.fetchOpenPos();
+        ;
         open.addAttribute("openPos", openPos);
-        List<investment> closePos = investmentService.fetchClosePos();;
+        List<investment> closePos = investmentService.fetchClosePos();
+        ;
         open.addAttribute("closePos", closePos);
         return "index";
     }
@@ -44,7 +47,7 @@ public class InvestmentTrackerController {
         LocalDateTime timestamp = LocalDateTime.now();
         List<investment> idSize = investmentService.fetchAllInvestments();
         int amount = idSize.size();
-        Investment.setId(amount+1);
+        Investment.setId(amount + 1);
         Investment.setOpenedTimestamp(timestamp.toString());
         investmentService.saveInvestment(Investment);
         return "index";
@@ -69,20 +72,23 @@ public class InvestmentTrackerController {
     @ResponseBody
     public List<investment> fetchAllInvestments() {
         investmentService.fetchAllInvestments();
-        return investmentService.fetchAllInvestments(); }
+        return investmentService.fetchAllInvestments();
+    }
 
     @GetMapping("/MarketData/{id}/")
     public ResponseEntity fetchById(@PathVariable("id") String id) {
         investment foundInvestment = investmentService.fetchById(Integer.parseInt(id));
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity(foundInvestment,headers,HttpStatus.OK);}
+        return new ResponseEntity(foundInvestment, headers, HttpStatus.OK);
+    }
 
     @PostMapping(value = "/MarketData/", consumes = "application/json", produces = "application/json")
     public investment createInvestment(@RequestBody investment Investment) throws Exception {
         investment newInvestment;
         newInvestment = investmentService.saveInvestment(Investment);
-        return newInvestment;}
+        return newInvestment;
+    }
 
     @DeleteMapping("/MarketData/{id}/")
     public ResponseEntity deleteInvestment(@PathVariable("id") String id) {
@@ -94,10 +100,10 @@ public class InvestmentTrackerController {
         }
     }
 
-    @GetMapping(value="/MarketData/Investment/")
+    @GetMapping(value = "/MarketData/Investment/")
     public String fetchMarketData(Model model) {
         try {
-            List<MarketData> marketData = investmentService.fetchMarketData();;
+            List<MarketData> marketData = investmentService.fetchMarketData();
             model.addAttribute("marketData", marketData);
             return "companies";
         } catch (IOException e) {
@@ -107,22 +113,38 @@ public class InvestmentTrackerController {
     }
 
     @RequestMapping("/open")
-    public String openInv(Model model){
+    public String openInv(Model model) {
         investment Investment = new investment();
         model.addAttribute(Investment);
         return "add";
     }
 
     @RequestMapping("/close")
-    public String closeInv(Model model){
+    public String closeInv(Model model) {
         investment Investment = new investment();
         model.addAttribute(Investment);
         return "close";
     }
 
     @RequestMapping(value = "/Investment", method = RequestMethod.GET)
-    public ModelAndView searchInvestments(String searchTerm)  {
+    public ModelAndView searchInvestments(String searchTerm) {
         URI location = URI.create("https://finance.yahoo.com/quote/" + searchTerm);
-        return new ModelAndView("redirect:"+location);
+        return new ModelAndView("redirect:" + location);
+    }
+
+    @GetMapping("/dataAutoComplete")
+    @ResponseBody
+    public List<String> dataAutoComplete(@RequestParam(value = "term", required = false, defaultValue = "") String term) {
+        List<String> allSymbols = new ArrayList<String>();
+        try {
+            List<MarketData> marketData = investmentService.fetchMarketData();
+            for (MarketData data : marketData) {
+                allSymbols.add(data.getSymbol());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<String>();
+        }
+        return allSymbols;
     }
 }
