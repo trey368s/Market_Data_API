@@ -24,7 +24,11 @@ public class InvestmentTrackerController {
     IInvestmentService investmentService;
 
     @RequestMapping("/")
-    public String index() {
+    public String index(Model open, Model close) {
+        List<investment> openPos = investmentService.fetchOpenPos();;
+        open.addAttribute("openPos", openPos);
+        List<investment> closePos = investmentService.fetchClosePos();;
+        open.addAttribute("closePos", closePos);
         return "index";
     }
 

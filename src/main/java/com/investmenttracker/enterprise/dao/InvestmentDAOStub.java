@@ -30,6 +30,35 @@ public class InvestmentDAOStub implements IInvestmentDAO {
     }
 
     @Override
+    public List<investment> fetchOpenPos() {
+        List<investment> returnOpenInv = new ArrayList(allInvestments.values());
+        for(int i=0; i< returnOpenInv.size();i++)
+        {
+            investment inv = returnOpenInv.get(i);
+            double profit = inv.getProfit();
+            if (profit != 0){
+                returnOpenInv.remove(i);
+            }
+        }
+        return returnOpenInv;
+    }
+
+    @Override
+    public List<investment> fetchClosePos() {
+        List<investment> returnCloseInv = new ArrayList(allInvestments.values());
+        for(int i=0; i< returnCloseInv.size();i++)
+        {
+            investment inv = returnCloseInv.get(i);
+            double profit = inv.getProfit();
+            if (profit == 0){
+                returnCloseInv.remove(i);
+                i--;
+            }
+        }
+        return returnCloseInv;
+    }
+
+    @Override
     public investment saveInvestment(investment Investment) {
         Integer investmentID = Investment.getId();
         allInvestments.put(investmentID, Investment);

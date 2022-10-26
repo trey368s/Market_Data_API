@@ -20,4 +20,8 @@ public interface IInvestmentService {
     List<investment> fetchAllInvestments();
 
     List<MarketData> fetchMarketData() throws IOException;
+
+    List<investment> fetchOpenPos();
+
+    List<investment> fetchClosePos();
 }

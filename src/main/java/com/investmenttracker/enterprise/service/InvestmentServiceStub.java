@@ -57,6 +57,16 @@ public class InvestmentServiceStub implements IInvestmentService{
     }
 
     @Override
+    public List<investment> fetchOpenPos() {
+        return investmentDAO.fetchOpenPos();
+    }
+
+    @Override
+    public List<investment> fetchClosePos() {
+        return investmentDAO.fetchClosePos();
+    }
+
+    @Override
     public List<MarketData> fetchMarketData() throws IOException {
         return marketDataDAO.fetchMarketData();
     }

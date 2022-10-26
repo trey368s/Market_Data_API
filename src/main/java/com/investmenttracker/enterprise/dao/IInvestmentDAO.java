@@ -11,9 +11,13 @@ public interface IInvestmentDAO {
 
     List<investment> fetchAllInvestments();
 
+    List<investment> fetchClosePos();
+
     investment saveInvestment(investment investment);
 
     investment fetchId(int id);
 
     void delete(int id);
+
+    List<investment> fetchOpenPos();
 }
