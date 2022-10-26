@@ -26,6 +26,21 @@ public class InvestmentTrackerController {
     @Autowired
     IInvestmentService investmentService;
 
+    static int isSubstring(String s1, String s2)
+    {
+        int M = s1.length();
+        int N = s2.length();
+        for (int i = 0; i <= N - M; i++) {
+            int j;
+            for (j = 0; j < M; j++)
+                if (s2.charAt(i + j) != s1.charAt(j))
+                    break;
+            if (j == M)
+                return i;
+        }
+        return -1;
+    }
+
     @RequestMapping("/")
     public String index(Model open, Model close) {
         List<investment> openPos = investmentService.fetchOpenPos();
@@ -102,8 +117,9 @@ public class InvestmentTrackerController {
 
     @GetMapping(value = "/MarketData/Investment/")
     public String fetchMarketData(Model model) {
+        String term = "";
         try {
-            List<MarketData> marketData = investmentService.fetchMarketData();
+            List<MarketData> marketData = investmentService.fetchMarketData(term);
             model.addAttribute("marketData", marketData);
             return "companies";
         } catch (IOException e) {
@@ -137,9 +153,12 @@ public class InvestmentTrackerController {
     public List<String> dataAutoComplete(@RequestParam(value = "term", required = false, defaultValue = "") String term) {
         List<String> allSymbols = new ArrayList<String>();
         try {
-            List<MarketData> marketData = investmentService.fetchMarketData();
+            List<MarketData> marketData = investmentService.fetchMarketData(term);
             for (MarketData data : marketData) {
-                allSymbols.add(data.getSymbol());
+                int substring = isSubstring(term,data.getSymbol());
+                if(substring != -1){
+                    allSymbols.add(data.getSymbol());
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

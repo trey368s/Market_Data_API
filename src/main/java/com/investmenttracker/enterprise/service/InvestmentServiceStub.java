@@ -67,7 +67,7 @@ public class InvestmentServiceStub implements IInvestmentService{
     }
 
     @Override
-    public List<MarketData> fetchMarketData() throws IOException {
+    public List<MarketData> fetchMarketData(String term) throws IOException {
         return marketDataDAO.fetchMarketData();
     }
 }
