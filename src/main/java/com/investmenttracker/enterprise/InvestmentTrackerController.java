@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.net.URI;
 import java.time.LocalDateTime;
 
 import java.io.IOException;
@@ -118,8 +120,9 @@ public class InvestmentTrackerController {
         return "close";
     }
 
-    @GetMapping("/Investment")
-    public ResponseEntity searchInvestments(@RequestParam(value = "searchTerm", required = false, defaultValue = "None") String searchTerm) {
-        return new ResponseEntity(HttpStatus.OK);
+    @RequestMapping(value = "/Investment", method = RequestMethod.GET)
+    public ModelAndView searchInvestments(String searchTerm)  {
+        URI location = URI.create("https://finance.yahoo.com/quote/" + searchTerm);
+        return new ModelAndView("redirect:"+location);
     }
 }
