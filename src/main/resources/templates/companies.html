@@ -11,7 +11,7 @@
 <div th:replace="fragments/topnav :: navbar"></div>
 <h2>List of S&P 500 Companies</h2>
 <div class="list-group" th:each="data : ${marketData}">
-  <a href="#" class="list-group-item list-group-item-action">
+  <a th:href="@{'https://finance.yahoo.com/quote/' + ${data.symbol}}" class="list-group-item list-group-item-action">
     <p th:text="${data}"></p>
   </a>
 </div>
