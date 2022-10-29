@@ -16,11 +16,11 @@
 <form action="#" th:action="@{/closeInvestment}" th:object="${investment}" method="GET">
   <div class="input-group input-group-sm mb-3">
     <span class="input-group-text" id="id">ID</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="id" th:field="*{id}">
+    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="id" name="id" th:field="*{id}">
   </div>
   <div class="input-group input-group-sm mb-3">
     <span class="input-group-text" id="symbol">Price Closed</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="symbol" th:field="*{priceClosed}">
+    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="symbol" name="symbol" th:field="*{priceClosed}">
   </div>
   <button name="submit" type="submit" value="0">Submit</button>
 </form>
