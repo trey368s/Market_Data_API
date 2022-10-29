@@ -30,5 +30,5 @@ Quality Assurance- Max De Santiago
 ## Scrum Board
 https://github.com/trey368s/Market_Data_API/projects
 ## Scrum Meetings
-In teams on Sundays at 12
+Weekly Standup, Tuesdays @ 6:00-6:30PM
 
