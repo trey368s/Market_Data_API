@@ -9,7 +9,7 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script type="text/javascript">
+  <script>
     $(function() {
       $("#company_Symbol").autocomplete({
         source: "dataAutoComplete",
@@ -26,15 +26,15 @@
 <form action="#" th:action="@{/openInvestment}" th:object="${investment}" method="GET">
   <div class="input-group input-group-sm mb-3">
     <span class="input-group-text" id="symbol">Symbol</span>
-    <input id="company_Symbol" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="symbol" th:field="*{symbol}">
+    <input id="company_Symbol" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="symbol" name="symbol" th:field="*{symbol}">
   </div>
   <div class="input-group input-group-sm mb-3">
     <span class="input-group-text" id="shares">Shares</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="shares" th:field="*{shares}">
+    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="shares" name="shares" th:field="*{shares}">
   </div>
   <div class="input-group input-group-sm mb-3">
     <span class="input-group-text" id="priceOpened">Price Opened</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="priceOpened" th:field="*{priceOpened}">
+    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="priceOpened" name="priceOpened" th:field="*{priceOpened}">
   </div>
   <button type="submit" name="submit" value="0">Submit</button>
 </form>
