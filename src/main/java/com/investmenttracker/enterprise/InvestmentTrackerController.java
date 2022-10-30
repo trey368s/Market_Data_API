@@ -151,7 +151,7 @@ public class InvestmentTrackerController {
     @GetMapping("/dataAutoComplete")
     @ResponseBody
     public List<String> dataAutoComplete(@RequestParam(value = "term", required = false, defaultValue = "") String term) {
-        List<String> allSymbols = new ArrayList<>();
+        List<String> allSymbols = new ArrayList<String>();
         try {
             List<MarketData> marketData = investmentService.fetchMarketData(term);
             for (MarketData data : marketData) {
@@ -162,7 +162,7 @@ public class InvestmentTrackerController {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            return new ArrayList<>();
+            return new ArrayList<String>();
         }
         return allSymbols;
     }
