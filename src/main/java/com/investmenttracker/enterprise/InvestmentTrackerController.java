@@ -44,10 +44,10 @@ public class InvestmentTrackerController {
     @RequestMapping("/")
     public String index(Model open, Model close) {
         List<investment> openPos = investmentService.fetchOpenPos();
-        ;
+
         open.addAttribute("openPos", openPos);
         List<investment> closePos = investmentService.fetchClosePos();
-        ;
+
         open.addAttribute("closePos", closePos);
         return "index";
     }
@@ -151,7 +151,7 @@ public class InvestmentTrackerController {
     @GetMapping("/dataAutoComplete")
     @ResponseBody
     public List<String> dataAutoComplete(@RequestParam(value = "term", required = false, defaultValue = "") String term) {
-        List<String> allSymbols = new ArrayList<String>();
+        List<String> allSymbols = new ArrayList<>();
         try {
             List<MarketData> marketData = investmentService.fetchMarketData(term);
             for (MarketData data : marketData) {
@@ -162,7 +162,7 @@ public class InvestmentTrackerController {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            return new ArrayList<String>();
+            return new ArrayList<>();
         }
         return allSymbols;
     }
