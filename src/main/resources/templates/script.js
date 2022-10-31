@@ -35,3 +35,10 @@ socket.onmessage = function(event){
         }
     }
 }
+
+$(document).ready(function() {
+    $("#company_Symbol").autocomplete({
+        source: "dataAutoComplete",
+        minLength: 1
+    });
+});
