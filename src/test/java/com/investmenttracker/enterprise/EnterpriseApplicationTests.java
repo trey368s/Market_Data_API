@@ -1,7 +1,7 @@
 package com.investmenttracker.enterprise;
 
 import com.investmenttracker.enterprise.dao.IInvestmentDAO;
-import com.investmenttracker.enterprise.dto.investment;
+import com.investmenttracker.enterprise.dto.Investment;
 import com.investmenttracker.enterprise.service.IInvestmentService;
 import com.investmenttracker.enterprise.service.InvestmentServiceStub;
 import org.junit.jupiter.api.Test;
@@ -18,8 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 class EnterpriseApplicationTests {
 	@Autowired
-	IInvestmentService investmentService;
-	investment Investment = new investment();
+	private IInvestmentService investmentService;
+	private Investment investment = new Investment();
 
 	@MockBean
 	private IInvestmentDAO investmentDAO;
@@ -35,34 +35,34 @@ class EnterpriseApplicationTests {
 		int shares = 30;
 		double priceOpened = 145.75;
 
-		Investment.setId(id);
-		assertEquals(id, Investment.getId());
-		Investment.setSymbol(symbol);
-		assertEquals(symbol, Investment.getSymbol());
-		Investment.setShares(shares);
-		assertEquals(shares, Investment.getShares());
-		Investment.setPriceOpened(priceOpened);
-		assertEquals(priceOpened, Investment.getPriceOpened());
+		investment.setId(id);
+		assertEquals(id, investment.getId());
+		investment.setSymbol(symbol);
+		assertEquals(symbol, investment.getSymbol());
+		investment.setShares(shares);
+		assertEquals(shares, investment.getShares());
+		investment.setPriceOpened(priceOpened);
+		assertEquals(priceOpened, investment.getPriceOpened());
 	}
 
 	@Test
-	void verifyAddAndRemoveInvestmentEntries() {
+	void verifyAddAndRemoveInvestmentEntries(){
 		int id = 2;
 		String symbol = "MSFT";
 		int shares = 15;
 		double priceOpened = 245.33;
 
-		investment Investment = new investment();
-		Investment.setId(id);
-		Investment.setSymbol(symbol);
-		Investment.setShares(shares);
-		Investment.setPriceOpened(priceOpened);
+		Investment investment = new Investment();
+		investment.setId(id);
+		investment.setSymbol(symbol);
+		investment.setShares(shares);
+		investment.setPriceOpened(priceOpened);
 
-		investmentService.save(Investment);
+		investmentService.save(investment);
 
-		List<investment> InvestmentEntries = investmentService.fetchAll();
+		List<Investment> investmentEntries = investmentService.fetchAll();
 		boolean investmentPresent = false;
-		for (investment je : InvestmentEntries) {
+		for (Investment je : investmentEntries) {
 			if (je.getId()==(id) && je.getSymbol().equals(symbol) && je.getShares()==(shares) && je.getPriceOpened()==(priceOpened)) {
 				investmentPresent = true;
 				break;
@@ -81,28 +81,28 @@ class EnterpriseApplicationTests {
 	}
 
 	private void whenInvestment333AddedIsMSFT() {
-		investment Investment = new investment();
-		Investment.setId(333);
-		Investment.setSymbol("MSFT");
-		Mockito.when(investmentDAO.fetch(333)).thenReturn(Investment);
+		Investment inv = new Investment();
+		inv.setId(333);
+		inv.setSymbol("MSFT");
+		Mockito.when(investmentDAO.fetch(333)).thenReturn(inv);
 	}
 
 	private void givenInvestmentDataAreAvailable() {
-		Mockito.when(investmentDAO.saveInvestment(Investment)).thenReturn(Investment);
+		Mockito.when(investmentDAO.saveInvestment(investment)).thenReturn(investment);
 		investmentService = new InvestmentServiceStub(investmentDAO);
 	}
 
 	private void whenSearchInvestmentWithID333() {
-		Investment = investmentService.fetchById(333);
+		investment = investmentService.fetchById(333);
 	}
 
 	private void thenReturnOneMSFTInvestmentForID333() {
-		String symbol = Investment.getSymbol();
+		String symbol = investment.getSymbol();
 		assertEquals("MSFT", symbol);
 	}
 
 	private void whenInvestment333IsMSFT(){
-		investment inv = new investment();
+		Investment inv = new Investment();
 		inv.setId(333);
 		inv.setSymbol("MSFT");
 		Mockito.when(investmentDAO.fetchId(333)).thenReturn(inv);

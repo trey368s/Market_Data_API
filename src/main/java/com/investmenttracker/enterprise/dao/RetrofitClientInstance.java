@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClientInstance {
 
     private static Retrofit retrofit;
-    private static String BASE_URL = "https://pkgstore.datahub.io/";
+    private static final String BASE_URL = "https://pkgstore.datahub.io/";
 
     public static Retrofit getRetrofitInstance(){
         if (retrofit == null) {

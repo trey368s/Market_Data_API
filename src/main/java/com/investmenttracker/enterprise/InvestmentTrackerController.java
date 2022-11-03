@@ -1,7 +1,7 @@
 package com.investmenttracker.enterprise;
 
 import com.investmenttracker.enterprise.dto.MarketData;
-import com.investmenttracker.enterprise.dto.investment;
+import com.investmenttracker.enterprise.dto.Investment;
 import com.investmenttracker.enterprise.service.IInvestmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -43,11 +43,9 @@ public class InvestmentTrackerController {
 
     @RequestMapping("/")
     public String index(Model open, Model close) {
-        List<investment> openPos = investmentService.fetchOpenPos();
-        ;
+        List<Investment> openPos = investmentService.fetchOpenPos();
         open.addAttribute("openPos", openPos);
-        List<investment> closePos = investmentService.fetchClosePos();
-        ;
+        List<Investment> closePos = investmentService.fetchClosePos();
         open.addAttribute("closePos", closePos);
         return "index";
     }
@@ -58,9 +56,9 @@ public class InvestmentTrackerController {
     }
 
     @RequestMapping("/openInvestment")
-    public String openInvestment(investment Investment) throws Exception {
+    public String openInvestment(Investment Investment) throws Exception {
         LocalDateTime timestamp = LocalDateTime.now();
-        List<investment> idSize = investmentService.fetchAllInvestments();
+        List<com.investmenttracker.enterprise.dto.Investment> idSize = investmentService.fetchAllInvestments();
         int amount = idSize.size();
         Investment.setId(amount + 1);
         Investment.setOpenedTimestamp(timestamp.toString());
@@ -69,8 +67,8 @@ public class InvestmentTrackerController {
     }
 
     @RequestMapping("/closeInvestment")
-    public String closeInvestment(investment Investment, @RequestParam(value = "id", required = false, defaultValue = "0") String id) throws Exception {
-        investment foundInvestment = investmentService.fetchById(Integer.parseInt(id));
+    public String closeInvestment(Investment Investment, @RequestParam(value = "id", required = false, defaultValue = "0") String id) throws Exception {
+        com.investmenttracker.enterprise.dto.Investment foundInvestment = investmentService.fetchById(Integer.parseInt(id));
         Investment.setSymbol(foundInvestment.getSymbol());
         Investment.setShares(foundInvestment.getShares());
         Investment.setPriceOpened(foundInvestment.getPriceOpened());
@@ -85,22 +83,22 @@ public class InvestmentTrackerController {
 
     @GetMapping("/MarketData/")
     @ResponseBody
-    public List<investment> fetchAllInvestments() {
+    public List<Investment> fetchAllInvestments() {
         investmentService.fetchAllInvestments();
         return investmentService.fetchAllInvestments();
     }
 
     @GetMapping("/MarketData/{id}/")
     public ResponseEntity fetchById(@PathVariable("id") String id) {
-        investment foundInvestment = investmentService.fetchById(Integer.parseInt(id));
+        Investment foundInvestment = investmentService.fetchById(Integer.parseInt(id));
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity(foundInvestment, headers, HttpStatus.OK);
     }
 
     @PostMapping(value = "/MarketData/", consumes = "application/json", produces = "application/json")
-    public investment createInvestment(@RequestBody investment Investment) throws Exception {
-        investment newInvestment;
+    public Investment createInvestment(@RequestBody Investment Investment) throws Exception {
+        com.investmenttracker.enterprise.dto.Investment newInvestment;
         newInvestment = investmentService.saveInvestment(Investment);
         return newInvestment;
     }
@@ -130,14 +128,14 @@ public class InvestmentTrackerController {
 
     @RequestMapping("/open")
     public String openInv(Model model) {
-        investment Investment = new investment();
+        Investment Investment = new Investment();
         model.addAttribute(Investment);
         return "add";
     }
 
     @RequestMapping("/close")
     public String closeInv(Model model) {
-        investment Investment = new investment();
+        Investment Investment = new Investment();
         model.addAttribute(Investment);
         return "close";
     }
