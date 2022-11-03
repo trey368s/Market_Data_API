@@ -81,10 +81,10 @@ class EnterpriseApplicationTests {
 	}
 
 	private void whenInvestment333AddedIsMSFT() {
-		Investment inv = new Investment();
-		inv.setId(333);
-		inv.setSymbol("MSFT");
-		Mockito.when(investmentDAO.fetch(333)).thenReturn(inv);
+		Investment investment = new Investment();
+		investment.setId(333);
+		investment.setSymbol("MSFT");
+		Mockito.when(investmentDAO.fetch(333)).thenReturn(investment);
 	}
 
 	private void givenInvestmentDataAreAvailable() {
@@ -102,9 +102,9 @@ class EnterpriseApplicationTests {
 	}
 
 	private void whenInvestment333IsMSFT(){
-		Investment inv = new Investment();
-		inv.setId(333);
-		inv.setSymbol("MSFT");
-		Mockito.when(investmentDAO.fetchId(333)).thenReturn(inv);
+		Investment investment = new Investment();
+		investment.setId(333);
+		investment.setSymbol("MSFT");
+		Mockito.when(investmentDAO.fetchId(333)).thenReturn(investment);
 	}
 }
