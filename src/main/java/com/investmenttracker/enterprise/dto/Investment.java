@@ -3,7 +3,7 @@ package com.investmenttracker.enterprise.dto;
 import lombok.Data;
 
 public @Data
-class investment {
+class Investment {
 
     private int id;
     private String symbol;

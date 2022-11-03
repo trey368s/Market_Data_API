@@ -1,7 +1,7 @@
 package com.investmenttracker.enterprise;
 
 import com.investmenttracker.enterprise.dto.MarketData;
-import com.investmenttracker.enterprise.dto.investment;
+import com.investmenttracker.enterprise.dto.Investment;
 import com.investmenttracker.enterprise.service.IInvestmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -43,12 +43,10 @@ public class InvestmentTrackerController {
 
     @RequestMapping("/")
     public String index(Model open, Model close) {
-        List<investment> openPos = investmentService.fetchOpenPos();
-        ;
+        List<Investment> openPos = investmentService.fetchOpenPos();
         open.addAttribute("openPos", openPos);
-        List<investment> closePos = investmentService.fetchClosePos();
-        ;
-        open.addAttribute("closePos", closePos);
+        List<Investment> closePos = investmentService.fetchClosePos();
+        close.addAttribute("closePos", closePos);
         return "index";
     }
 
@@ -58,57 +56,57 @@ public class InvestmentTrackerController {
     }
 
     @RequestMapping("/openInvestment")
-    public String openInvestment(investment Investment) throws Exception {
+    public String openInvestment(Investment investment) throws Exception {
         LocalDateTime timestamp = LocalDateTime.now();
-        List<investment> idSize = investmentService.fetchAllInvestments();
+        List<Investment> idSize = investmentService.fetchAllInvestments();
         int amount = idSize.size();
-        Investment.setId(amount + 1);
-        Investment.setOpenedTimestamp(timestamp.toString());
-        investmentService.saveInvestment(Investment);
+        investment.setId(amount + 1);
+        investment.setOpenedTimestamp(timestamp.toString());
+        investmentService.saveInvestment(investment);
         return "index";
     }
 
     @RequestMapping("/closeInvestment")
-    public String closeInvestment(investment Investment, @RequestParam(value = "id", required = false, defaultValue = "0") String id) throws Exception {
-        investment foundInvestment = investmentService.fetchById(Integer.parseInt(id));
-        Investment.setSymbol(foundInvestment.getSymbol());
-        Investment.setShares(foundInvestment.getShares());
-        Investment.setPriceOpened(foundInvestment.getPriceOpened());
-        Investment.setOpenedTimestamp(foundInvestment.getOpenedTimestamp());
+    public String closeInvestment(Investment investment, @RequestParam(value = "id", required = false, defaultValue = "0") int id) throws Exception {
+        Investment foundInvestment = investmentService.fetchById(id);
+        investment.setSymbol(foundInvestment.getSymbol());
+        investment.setShares(foundInvestment.getShares());
+        investment.setPriceOpened(foundInvestment.getPriceOpened());
+        investment.setOpenedTimestamp(foundInvestment.getOpenedTimestamp());
         LocalDateTime timestamp = LocalDateTime.now();
-        Investment.setClosedTimestamp(timestamp.toString());
-        double profit = (Investment.getPriceClosed() * Investment.getShares()) - (Investment.getPriceOpened() * Investment.getShares());
-        Investment.setProfit(profit);
-        investmentService.saveInvestment(Investment);
+        investment.setClosedTimestamp(timestamp.toString());
+        double profit = (investment.getPriceClosed() * investment.getShares()) - (investment.getPriceOpened() * investment.getShares());
+        investment.setProfit(profit);
+        investmentService.saveInvestment(investment);
         return "index";
     }
 
     @GetMapping("/MarketData/")
     @ResponseBody
-    public List<investment> fetchAllInvestments() {
+    public List<Investment> fetchAllInvestments() {
         investmentService.fetchAllInvestments();
         return investmentService.fetchAllInvestments();
     }
 
     @GetMapping("/MarketData/{id}/")
-    public ResponseEntity fetchById(@PathVariable("id") String id) {
-        investment foundInvestment = investmentService.fetchById(Integer.parseInt(id));
+    public ResponseEntity fetchById(@PathVariable("id") int id) {
+        Investment foundInvestment = investmentService.fetchById(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity(foundInvestment, headers, HttpStatus.OK);
     }
 
     @PostMapping(value = "/MarketData/", consumes = "application/json", produces = "application/json")
-    public investment createInvestment(@RequestBody investment Investment) throws Exception {
-        investment newInvestment;
-        newInvestment = investmentService.saveInvestment(Investment);
+    public Investment createInvestment(@RequestBody Investment investment) throws Exception {
+        Investment newInvestment;
+        newInvestment = investmentService.saveInvestment(investment);
         return newInvestment;
     }
 
     @DeleteMapping("/MarketData/{id}/")
-    public ResponseEntity deleteInvestment(@PathVariable("id") String id) {
+    public ResponseEntity deleteInvestment(@PathVariable("id") int id) {
         try {
-            investmentService.delete(Integer.parseInt(id));
+            investmentService.delete(id);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -130,15 +128,15 @@ public class InvestmentTrackerController {
 
     @RequestMapping("/open")
     public String openInv(Model model) {
-        investment Investment = new investment();
-        model.addAttribute(Investment);
+        Investment investment = new Investment();
+        model.addAttribute(investment);
         return "add";
     }
 
     @RequestMapping("/close")
     public String closeInv(Model model) {
-        investment Investment = new investment();
-        model.addAttribute(Investment);
+        Investment investment = new Investment();
+        model.addAttribute(investment);
         return "close";
     }
 

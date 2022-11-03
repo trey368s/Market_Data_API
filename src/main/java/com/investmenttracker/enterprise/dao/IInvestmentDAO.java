@@ -1,23 +1,23 @@
 package com.investmenttracker.enterprise.dao;
 
-import com.investmenttracker.enterprise.dto.investment;
+import com.investmenttracker.enterprise.dto.Investment;
 
 import java.util.List;
 
 public interface IInvestmentDAO {
-    investment save(investment investment);
+    Investment save(Investment investment);
 
     Object fetch(int id);
 
-    List<investment> fetchAllInvestments();
+    List<Investment> fetchAllInvestments();
 
-    List<investment> fetchClosePos();
+    List<Investment> fetchClosePos();
 
-    investment saveInvestment(investment investment);
+    Investment saveInvestment(Investment investment);
 
-    investment fetchId(int id);
+    Investment fetchId(int id);
 
     void delete(int id);
 
-    List<investment> fetchOpenPos();
+    List<Investment> fetchOpenPos();
 }
