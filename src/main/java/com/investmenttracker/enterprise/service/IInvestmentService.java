@@ -24,4 +24,19 @@ public interface IInvestmentService {
     List<investment> fetchOpenPos();
 
     List<investment> fetchClosePos();
+
+    static int isSubstring(String s1, String s2)
+    {
+        int M = s1.length();
+        int N = s2.length();
+        for (int i = 0; i <= N - M; i++) {
+            int j;
+            for (j = 0; j < M; j++)
+                if (s2.charAt(i + j) != s1.charAt(j))
+                    break;
+            if (j == M)
+                return i;
+        }
+        return -1;
+    }
 }
