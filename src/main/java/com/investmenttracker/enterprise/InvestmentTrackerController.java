@@ -1,5 +1,6 @@
 package com.investmenttracker.enterprise;
 
+import com.investmenttracker.enterprise.dto.LabelValue;
 import com.investmenttracker.enterprise.dto.MarketData;
 import com.investmenttracker.enterprise.dto.investment;
 import com.investmenttracker.enterprise.service.IInvestmentService;
@@ -135,6 +136,26 @@ public class InvestmentTrackerController {
 
     @GetMapping("/dataAutoComplete")
     @ResponseBody
+    public List<LabelValue> dataAutoComplete(@RequestParam(value = "term", required = false, defaultValue = "") String term) {
+        List<LabelValue> allSymbols = new ArrayList<>();
+        try{
+            List<MarketData> marketData = investmentService.fetchMarketData(term);
+            for (MarketData data: marketData) {
+                LabelValue labelValue = new LabelValue();
+                labelValue.setLabel(data.toString());
+                labelValue.setValue(data.getSymbol());
+                allSymbols.add(labelValue);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<LabelValue>();
+        }
+        return allSymbols;
+    }
+
+    /*
+    @GetMapping("/dataAutoComplete")
+    @ResponseBody
     public List<String> dataAutoComplete(@RequestParam(value = "term", required = false, defaultValue = "") String term) {
         List<String> allSymbols = new ArrayList<String>();
         try {
@@ -151,4 +172,5 @@ public class InvestmentTrackerController {
         }
         return allSymbols;
     }
+    */
 }
