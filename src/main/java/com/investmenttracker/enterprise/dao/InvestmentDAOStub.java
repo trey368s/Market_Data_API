@@ -1,6 +1,6 @@
 package com.investmenttracker.enterprise.dao;
 
-import com.investmenttracker.enterprise.dto.investment;
+import com.investmenttracker.enterprise.dto.Investment;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -11,11 +11,13 @@ import java.util.Map;
 @Repository
 public class InvestmentDAOStub implements IInvestmentDAO {
 
-    Map<Integer, investment> allInvestments = new HashMap<>();
+    Map<Integer, Investment> allInvestments = new HashMap<>();
 
     @Override
-    public investment save(investment investment) {
-        return null;
+    public Investment save(Investment investment){
+        Integer investmentId = investment.getId();
+        allInvestments.put(investmentId, investment);
+        return investment;
     }
 
     @Override
@@ -24,17 +26,17 @@ public class InvestmentDAOStub implements IInvestmentDAO {
     }
 
     @Override
-    public List<investment> fetchAllInvestments() {
-        List<investment> returnInvestments = new ArrayList(allInvestments.values());
+    public List<Investment> fetchAllInvestments() {
+        List<Investment> returnInvestments = new ArrayList(allInvestments.values());
         return returnInvestments;
     }
 
     @Override
-    public List<investment> fetchOpenPos() {
-        List<investment> returnOpenInv = new ArrayList(allInvestments.values());
+    public List<Investment> fetchOpenPos() {
+        List<Investment> returnOpenInv = new ArrayList(allInvestments.values());
         for(int i=0; i< returnOpenInv.size();i++)
         {
-            investment inv = returnOpenInv.get(i);
+            Investment inv = returnOpenInv.get(i);
             var closed = inv.getClosedTimestamp();
             if (closed != null){
                 returnOpenInv.remove(i);
@@ -44,11 +46,11 @@ public class InvestmentDAOStub implements IInvestmentDAO {
     }
 
     @Override
-    public List<investment> fetchClosePos() {
-        List<investment> returnCloseInv = new ArrayList(allInvestments.values());
+    public List<Investment> fetchClosePos() {
+        List<Investment> returnCloseInv = new ArrayList(allInvestments.values());
         for(int i=0; i< returnCloseInv.size();i++)
         {
-            investment inv = returnCloseInv.get(i);
+            Investment inv = returnCloseInv.get(i);
             var closed = inv.getClosedTimestamp();
             if (closed == null){
                 returnCloseInv.remove(i);
@@ -59,14 +61,14 @@ public class InvestmentDAOStub implements IInvestmentDAO {
     }
 
     @Override
-    public investment saveInvestment(investment Investment) {
-        Integer investmentID = Investment.getId();
-        allInvestments.put(investmentID, Investment);
-        return Investment;
+    public Investment saveInvestment(Investment investment) {
+        Integer investmentID = investment.getId();
+        allInvestments.put(investmentID, investment);
+        return investment;
     }
 
     @Override
-    public investment fetchId(int id) {
+    public Investment fetchId(int id) {
         return allInvestments.get(id);
     }
 

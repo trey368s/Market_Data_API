@@ -1,29 +1,29 @@
 package com.investmenttracker.enterprise.service;
 
 import com.investmenttracker.enterprise.dto.MarketData;
-import com.investmenttracker.enterprise.dto.investment;
+import com.investmenttracker.enterprise.dto.Investment;
 
 import java.io.IOException;
 import java.util.List;
 
 public interface IInvestmentService {
-    investment fetchById(int id);
+    Investment fetchById(int id);
 
     void delete(int id) throws Exception;
 
-    void save (investment Investment);
+    void save (Investment Investment);
 
-    investment saveInvestment(investment Investment) throws Exception;
+    Investment saveInvestment(Investment investment) throws Exception;
 
-    List<investment> fetchAll();
+    List<Investment> fetchAll();
 
-    List<investment> fetchAllInvestments();
+    List<Investment> fetchAllInvestments();
 
     List<MarketData> fetchMarketData(String term) throws IOException;
 
-    List<investment> fetchOpenPos();
+    List<Investment> fetchOpenPos();
 
-    List<investment> fetchClosePos();
+    List<Investment> fetchClosePos();
 
     static int isSubstring(String s1, String s2)
     {

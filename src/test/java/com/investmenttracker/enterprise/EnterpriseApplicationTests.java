@@ -1,7 +1,7 @@
 package com.investmenttracker.enterprise;
 
 import com.investmenttracker.enterprise.dao.IInvestmentDAO;
-import com.investmenttracker.enterprise.dto.investment;
+import com.investmenttracker.enterprise.dto.Investment;
 import com.investmenttracker.enterprise.service.IInvestmentService;
 import com.investmenttracker.enterprise.service.InvestmentServiceStub;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class EnterpriseApplicationTests {
 	@Autowired
 	IInvestmentService investmentService;
-	investment Investment = new investment();
+	com.investmenttracker.enterprise.dto.Investment Investment = new Investment();
 
 	@MockBean
 	private IInvestmentDAO investmentDAO;
@@ -52,7 +52,7 @@ class EnterpriseApplicationTests {
 		int shares = 15;
 		double priceOpened = 245.33;
 
-		investment Investment = new investment();
+		com.investmenttracker.enterprise.dto.Investment Investment = new Investment();
 		Investment.setId(id);
 		Investment.setSymbol(symbol);
 		Investment.setShares(shares);
@@ -60,9 +60,9 @@ class EnterpriseApplicationTests {
 
 		investmentService.save(Investment);
 
-		List<investment> InvestmentEntries = investmentService.fetchAll();
+		List<com.investmenttracker.enterprise.dto.Investment> InvestmentEntries = investmentService.fetchAll();
 		boolean investmentPresent = false;
-		for (investment je : InvestmentEntries) {
+		for (com.investmenttracker.enterprise.dto.Investment je : InvestmentEntries) {
 			if (je.getId()==(id) && je.getSymbol().equals(symbol) && je.getShares()==(shares) && je.getPriceOpened()==(priceOpened)) {
 				investmentPresent = true;
 				break;
@@ -81,7 +81,7 @@ class EnterpriseApplicationTests {
 	}
 
 	private void whenInvestment333AddedIsMSFT() {
-		investment Investment = new investment();
+		com.investmenttracker.enterprise.dto.Investment Investment = new Investment();
 		Investment.setId(333);
 		Investment.setSymbol("MSFT");
 		Mockito.when(investmentDAO.fetch(333)).thenReturn(Investment);
@@ -102,7 +102,7 @@ class EnterpriseApplicationTests {
 	}
 
 	private void whenInvestment333IsMSFT(){
-		investment inv = new investment();
+		com.investmenttracker.enterprise.dto.Investment inv = new Investment();
 		inv.setId(333);
 		inv.setSymbol("MSFT");
 		Mockito.when(investmentDAO.fetchId(333)).thenReturn(inv);

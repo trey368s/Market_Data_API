@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 @Entity
 public @Data
-class investment {
+class Investment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
