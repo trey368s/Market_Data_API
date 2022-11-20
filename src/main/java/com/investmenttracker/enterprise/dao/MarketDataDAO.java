@@ -12,10 +12,10 @@ import java.util.List;
 @Repository
 public class MarketDataDAO implements IMarketDataDAO {
     @Override
-    public List<MarketData> fetchMarketData() throws IOException {
+    public List<MarketData> fetchMarketData(String combinedName) throws IOException {
         Retrofit retrofitInstance = RetrofitClientInstance.getRetrofitInstance();
         IMarketDataRetrofitDAO iMarketDataRetrofitDAO = retrofitInstance.create(IMarketDataRetrofitDAO.class);
-        Call<List<MarketData>> data = iMarketDataRetrofitDAO.getMarketData();
+        Call<List<MarketData>> data = iMarketDataRetrofitDAO.getMarketData(combinedName);
         Response<List<MarketData>> execute = data.execute();
         List<MarketData> marketData = execute.body();
         return marketData;

@@ -1,7 +1,8 @@
 package com.investmenttracker.enterprise;
 
+import com.investmenttracker.enterprise.dto.LabelValue;
 import com.investmenttracker.enterprise.dto.MarketData;
-import com.investmenttracker.enterprise.dto.investment;
+import com.investmenttracker.enterprise.dto.Investment;
 import com.investmenttracker.enterprise.service.IInvestmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -28,10 +29,10 @@ public class InvestmentTrackerController {
 
     @RequestMapping("/")
     public String index(Model open, Model close) {
-        List<investment> openPos = investmentService.fetchOpenPos();
+        List<Investment> openPos = investmentService.fetchOpenPos();
         ;
         open.addAttribute("openPos", openPos);
-        List<investment> closePos = investmentService.fetchClosePos();
+        List<Investment> closePos = investmentService.fetchClosePos();
         ;
         open.addAttribute("closePos", closePos);
         return "index";
@@ -43,50 +44,50 @@ public class InvestmentTrackerController {
     }
 
     @RequestMapping("/openInvestment")
-    public String openInvestment(investment Investment) throws Exception {
+    public String openInvestment(Investment investment) throws Exception {
         LocalDateTime timestamp = LocalDateTime.now();
-        List<investment> idSize = investmentService.fetchAllInvestments();
+        List<com.investmenttracker.enterprise.dto.Investment> idSize = investmentService.fetchAllInvestments();
         int amount = idSize.size();
-        Investment.setId(amount + 1);
-        Investment.setOpenedTimestamp(timestamp.toString());
-        investmentService.saveInvestment(Investment);
+        investment.setId(amount + 1);
+        investment.setOpenedTimestamp(timestamp.toString());
+        investmentService.saveInvestment(investment);
         return "index";
     }
 
     @RequestMapping("/closeInvestment")
-    public String closeInvestment(investment Investment, @RequestParam(value = "id", required = false, defaultValue = "0") String id) throws Exception {
-        investment foundInvestment = investmentService.fetchById(Integer.parseInt(id));
-        Investment.setSymbol(foundInvestment.getSymbol());
-        Investment.setShares(foundInvestment.getShares());
-        Investment.setPriceOpened(foundInvestment.getPriceOpened());
-        Investment.setOpenedTimestamp(foundInvestment.getOpenedTimestamp());
+    public String closeInvestment(Investment investment, @RequestParam(value = "id", required = false, defaultValue = "0") String id) throws Exception {
+        com.investmenttracker.enterprise.dto.Investment foundInvestment = investmentService.fetchById(Integer.parseInt(id));
+        investment.setSymbol(foundInvestment.getSymbol());
+        investment.setShares(foundInvestment.getShares());
+        investment.setPriceOpened(foundInvestment.getPriceOpened());
+        investment.setOpenedTimestamp(foundInvestment.getOpenedTimestamp());
         LocalDateTime timestamp = LocalDateTime.now();
-        Investment.setClosedTimestamp(timestamp.toString());
-        double profit = (Investment.getPriceClosed() * Investment.getShares()) - (Investment.getPriceOpened() * Investment.getShares());
-        Investment.setProfit(profit);
-        investmentService.saveInvestment(Investment);
+        investment.setClosedTimestamp(timestamp.toString());
+        double profit = (investment.getPriceClosed() * investment.getShares()) - (investment.getPriceOpened() * investment.getShares());
+        investment.setProfit(profit);
+        investmentService.saveInvestment(investment);
         return "index";
     }
 
     @GetMapping("/MarketData/")
     @ResponseBody
-    public List<investment> fetchAllInvestments() {
+    public List<Investment> fetchAllInvestments() {
         investmentService.fetchAllInvestments();
         return investmentService.fetchAllInvestments();
     }
 
     @GetMapping("/MarketData/{id}/")
     public ResponseEntity fetchById(@PathVariable("id") String id) {
-        investment foundInvestment = investmentService.fetchById(Integer.parseInt(id));
+        Investment foundInvestment = investmentService.fetchById(Integer.parseInt(id));
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity(foundInvestment, headers, HttpStatus.OK);
     }
 
     @PostMapping(value = "/MarketData/", consumes = "application/json", produces = "application/json")
-    public investment createInvestment(@RequestBody investment Investment) throws Exception {
-        investment newInvestment;
-        newInvestment = investmentService.saveInvestment(Investment);
+    public Investment createInvestment(@RequestBody Investment investment) throws Exception {
+        Investment newInvestment;
+        newInvestment = investmentService.saveInvestment(investment);
         return newInvestment;
     }
 
@@ -115,14 +116,14 @@ public class InvestmentTrackerController {
 
     @RequestMapping("/open")
     public String openInv(Model model) {
-        investment Investment = new investment();
+        Investment Investment = new Investment();
         model.addAttribute(Investment);
         return "add";
     }
 
     @RequestMapping("/close")
     public String closeInv(Model model) {
-        investment Investment = new investment();
+        Investment Investment = new Investment();
         model.addAttribute(Investment);
         return "close";
     }
@@ -135,19 +136,19 @@ public class InvestmentTrackerController {
 
     @GetMapping("/dataAutoComplete")
     @ResponseBody
-    public List<String> dataAutoComplete(@RequestParam(value = "term", required = false, defaultValue = "") String term) {
-        List<String> allSymbols = new ArrayList<String>();
-        try {
+    public List<LabelValue> dataAutoComplete(@RequestParam(value = "term", required = false, defaultValue = "") String term) {
+        List<LabelValue> allSymbols = new ArrayList<>();
+        try{
             List<MarketData> marketData = investmentService.fetchMarketData(term);
-            for (MarketData data : marketData) {
-                int substring = IInvestmentService.isSubstring(term,data.getSymbol());
-                if(substring != -1){
-                    allSymbols.add(data.getSymbol());
-                }
+            for (MarketData data: marketData) {
+                LabelValue labelValue = new LabelValue();
+                labelValue.setLabel(data.toString());
+                labelValue.setValue(data.getSymbol());
+                allSymbols.add(labelValue);
             }
         } catch (IOException e) {
             e.printStackTrace();
-            return new ArrayList<String>();
+            return new ArrayList<LabelValue>();
         }
         return allSymbols;
     }

@@ -3,7 +3,7 @@ package com.investmenttracker.enterprise.service;
 import com.investmenttracker.enterprise.dao.IInvestmentDAO;
 import com.investmenttracker.enterprise.dao.IMarketDataDAO;
 import com.investmenttracker.enterprise.dto.MarketData;
-import com.investmenttracker.enterprise.dto.investment;
+import com.investmenttracker.enterprise.dto.Investment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class InvestmentServiceStub implements IInvestmentService{
     private IMarketDataDAO marketDataDAO;
     @Autowired
     private IInvestmentDAO investmentDAO;
-    List<investment> allEntries = new ArrayList<>();
+    List<Investment> allEntries = new ArrayList<>();
 
     public InvestmentServiceStub(){
 
@@ -29,7 +29,7 @@ public class InvestmentServiceStub implements IInvestmentService{
     }
 
     @Override
-    public investment fetchById(int id){
+    public Investment fetchById(int id){
         return investmentDAO.fetchId(id);
     }
 
@@ -38,36 +38,36 @@ public class InvestmentServiceStub implements IInvestmentService{
         investmentDAO.delete(id);
     }
     @Override
-    public void save(investment Investment) {
+    public void save(Investment Investment) {
         allEntries.add(Investment);
     }
     @Override
-    public investment saveInvestment(investment Investment) {
-        return investmentDAO.saveInvestment(Investment);
+    public Investment saveInvestment(Investment investment) {
+        return investmentDAO.saveInvestment(investment);
     }
 
     @Override
-    public List<investment> fetchAll() {
+    public List<Investment> fetchAll() {
         return allEntries;
     }
 
     @Override
-    public List<investment> fetchAllInvestments() {
+    public List<Investment> fetchAllInvestments() {
         return investmentDAO.fetchAllInvestments();
     }
 
     @Override
-    public List<investment> fetchOpenPos() {
+    public List<Investment> fetchOpenPos() {
         return investmentDAO.fetchOpenPos();
     }
 
     @Override
-    public List<investment> fetchClosePos() {
+    public List<Investment> fetchClosePos() {
         return investmentDAO.fetchClosePos();
     }
 
     @Override
     public List<MarketData> fetchMarketData(String term) throws IOException {
-        return marketDataDAO.fetchMarketData();
+        return marketDataDAO.fetchMarketData(term);
     }
 }

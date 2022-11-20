@@ -1,6 +1,6 @@
 package com.investmenttracker.enterprise.dao;
 
-import com.investmenttracker.enterprise.dto.investment;
+import com.investmenttracker.enterprise.dto.Investment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +13,7 @@ public class InvestmentSQLDAO implements IInvestmentDAO{
     InvestmentRepository investmentRepository;
 
     @Override
-    public investment save(investment investment) {
+    public Investment save(Investment investment) {
         return null;
     }
 
@@ -23,23 +23,23 @@ public class InvestmentSQLDAO implements IInvestmentDAO{
     }
 
     @Override
-    public List<investment> fetchAllInvestments() {
+    public List<Investment> fetchAllInvestments() {
         return null;
     }
 
     @Override
-    public List<investment> fetchClosePos() {
+    public List<Investment> fetchClosePos() {
         return null;
     }
 
     @Override
-    public investment saveInvestment(investment investment) {
-        investment createdInvestment = investmentRepository.save(investment);
+    public Investment saveInvestment(Investment investment) {
+        Investment createdInvestment = investmentRepository.save(investment);
         return createdInvestment;
     }
 
     @Override
-    public investment fetchId(int id) {
+    public Investment fetchId(int id) {
         return null;
     }
 
@@ -49,7 +49,7 @@ public class InvestmentSQLDAO implements IInvestmentDAO{
     }
 
     @Override
-    public List<investment> fetchOpenPos() {
+    public List<Investment> fetchOpenPos() {
         return null;
     }
 }

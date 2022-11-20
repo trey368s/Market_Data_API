@@ -1,7 +1,7 @@
 package com.investmenttracker.enterprise.dao;
 
-import com.investmenttracker.enterprise.dto.investment;
+import com.investmenttracker.enterprise.dto.Investment;
 import org.springframework.data.repository.CrudRepository;
 
-public interface InvestmentRepository extends CrudRepository<investment, Integer> {
+public interface InvestmentRepository extends CrudRepository<Investment, Integer> {
 }
