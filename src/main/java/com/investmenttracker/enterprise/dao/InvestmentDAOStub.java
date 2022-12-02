@@ -46,6 +46,11 @@ public class InvestmentDAOStub implements IInvestmentDAO {
     }
 
     @Override
+    public List<Investment> fetchInvestmentsBySymbol(String symbol) {
+        return new ArrayList<Investment>();
+    }
+
+    @Override
     public List<Investment> fetchClosePos() {
         List<Investment> returnCloseInv = new ArrayList(allInvestments.values());
         for(int i=0; i< returnCloseInv.size();i++)

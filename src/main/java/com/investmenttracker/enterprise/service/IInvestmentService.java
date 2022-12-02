@@ -24,4 +24,6 @@ public interface IInvestmentService {
     List<Investment> fetchOpenPos();
 
     List<Investment> fetchClosePos();
+
+    List<Investment> fetchInvestmentsBySymbol(String symbol);
 }

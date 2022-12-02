@@ -4,6 +4,7 @@ import com.investmenttracker.enterprise.dto.LabelValue;
 import com.investmenttracker.enterprise.dto.MarketData;
 import com.investmenttracker.enterprise.dto.Investment;
 import com.investmenttracker.enterprise.service.IInvestmentService;
+import org.hibernate.annotations.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

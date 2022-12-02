@@ -74,4 +74,9 @@ public class InvestmentSQLDAO implements IInvestmentDAO{
         }
         return allInvestments;
     }
+
+    @Override
+    public List<Investment> fetchInvestmentsBySymbol(String symbol) {
+        return investmentRepository.findBySymbol(symbol);
+    }
 }

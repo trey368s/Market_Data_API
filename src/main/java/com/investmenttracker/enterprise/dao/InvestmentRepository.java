@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface InvestmentRepository extends CrudRepository<Investment, Integer> {
 
-    List<Investment> findByUserId(int userId);
-
+    List<Investment> findBySymbol(String symbol);
 }
+
