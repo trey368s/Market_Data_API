@@ -15,7 +15,7 @@
     $(function() {
       $("#company_Symbol_Name").autocomplete({
         source: "dataAutoComplete",
-        minLength: 3,
+        minLength: 1,
         select: function (event, ui) {
           this.value = ui.item.label;
           $("#company_Symbol").val(ui.item.value);

@@ -1,5 +1,5 @@
 package com.investmenttracker.enterprise.dao;
-
+/*
 import com.investmenttracker.enterprise.dto.Investment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -53,3 +53,4 @@ public class InvestmentSQLDAO implements IInvestmentDAO{
         return null;
     }
 }
+*/
