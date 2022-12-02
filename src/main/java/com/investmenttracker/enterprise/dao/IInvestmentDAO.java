@@ -20,4 +20,6 @@ public interface IInvestmentDAO {
     void delete(int id);
 
     List<Investment> fetchOpenPos();
+
+    List<Investment> fetchInvestmentsBySymbol(String symbol);
 }

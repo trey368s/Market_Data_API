@@ -1,10 +1,10 @@
 urlSymbol = window.location.href;
-tickerSymbol = urlSymbol.substring(urlSymbol.lastIndexOf("/") + 1);
-document.getElementById("symbol").innerHTML = tickerSymbol;
+symbol = urlSymbol.substring(urlSymbol.lastIndexOf("/") + 1);
+document.getElementById("symbol").innerHTML = symbol;
 
 const url = "wss://stream.data.alpaca.markets/v2/iex"
 const auth = {"action":"auth","key":"AKFOO6Z1ZA5J9L4WR4XD","secret":"NGCMczuSOV3LSdOE7v4azBhP1fwzFNyPHHVCH4rS"}
-const subscribe = {"action":"subscribe","trades":[tickerSymbol],"quotes":[tickerSymbol],"bars":[tickerSymbol]}
+const subscribe = {"action":"subscribe","trades":[symbol],"quotes":[symbol],"bars":[symbol]}
 
 const socket = new WebSocket(url);
 socket.onmessage = function(event){

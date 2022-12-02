@@ -1,9 +1,11 @@
 package com.investmenttracker.enterprise.dao;
-/*
+
+
 import com.investmenttracker.enterprise.dto.Investment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository("investmentDAO")
@@ -14,22 +16,35 @@ public class InvestmentSQLDAO implements IInvestmentDAO{
 
     @Override
     public Investment save(Investment investment) {
-        return null;
+        Investment savedInvestment = investmentRepository.save(investment);
+        return savedInvestment;
     }
 
     @Override
     public Object fetch(int id) {
-        return null;
+        return investmentRepository.findById(id).get();
     }
 
     @Override
     public List<Investment> fetchAllInvestments() {
-        return null;
+        List<Investment> allInvestments = new ArrayList<>();
+        Iterable<Investment> investments = investmentRepository.findAll();
+        for (Investment investment : investments) {
+            allInvestments.add(investment);
+        }
+        return allInvestments;
     }
 
     @Override
     public List<Investment> fetchClosePos() {
-        return null;
+        List<Investment> allInvestments = new ArrayList<>();
+        Iterable<Investment> investments = investmentRepository.findAll();
+        for (Investment investment : investments) {
+            if (investment.getClosedTimestamp() != null) {
+                allInvestments.add(investment);
+            }
+        }
+        return allInvestments;
     }
 
     @Override
@@ -40,17 +55,28 @@ public class InvestmentSQLDAO implements IInvestmentDAO{
 
     @Override
     public Investment fetchId(int id) {
-        return null;
+        return investmentRepository.findById(id).get();
     }
 
     @Override
     public void delete(int id) {
-
+        investmentRepository.deleteById(id);
     }
 
     @Override
     public List<Investment> fetchOpenPos() {
-        return null;
+        List<Investment> allInvestments = new ArrayList<>();
+        Iterable<Investment> investments = investmentRepository.findAll();
+        for (Investment investment : investments) {
+            if (investment.getClosedTimestamp() == null) {
+                allInvestments.add(investment);
+            }
+        }
+        return allInvestments;
+    }
+
+    @Override
+    public List<Investment> fetchInvestmentsBySymbol(String symbol) {
+        return investmentRepository.findBySymbol(symbol);
     }
 }
-*/
