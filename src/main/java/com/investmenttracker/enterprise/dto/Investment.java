@@ -17,10 +17,12 @@ import javax.persistence.Id;
  * closedTimestamp: Timestamp that the investment was closed
  * profit: (priceClosed * shares) - (priceOpened * shares)
  */
-
+@Entity
 public @Data
 class Investment {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
     private String symbol;
     private int shares;
